@@ -1,0 +1,50 @@
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+}
+
+.footer {
+  background: rgba(14, 10, 7, 0.97);
+  border-top: 1px solid rgba(212, 175, 110, 0.15);
+  padding: 24px 8%;
+  text-align: center;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.footer-brand {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: #F5ECD7;
+  letter-spacing: 0.06em;
+}
+
+.footer-brand span {
+  color: #D4AF6E;
+  font-style: italic;
+}
+
+.footer-tagline {
+  font-family: "Jost", sans-serif;
+  font-size: 0.65rem;
+  color: #5a4a3a;
+  letter-spacing: 0.12em;
+}
+
+.footer-copy {
+  font-family: "Jost", sans-serif;
+  font-size: 0.6rem;
+  color: #3a2a1a;
+  letter-spacing: 0.1em;
+}

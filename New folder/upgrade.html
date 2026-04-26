@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drishti's Enhanced To-Do List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e3f2fd, #ffffff);
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #0d47a1;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"], input[type="time"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 45%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin-right: 5%;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      background-color: #1a237e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background-color: #f9f9f9;
+      border-left: 5px solid #0d47a1;
+      padding: 12px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .task-info {
+      max-width: 70%;
+    }
+
+    .task-info span {
+      display: block;
+    }
+
+    .time {
+      font-weight: bold;
+      color: #1565c0;
+    }
+
+    .done-btn, .delete-btn {
+      background-color: #2e7d32;
+      margin-left: 10px;
+      border: none;
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .delete-btn {
+      background-color: #c62828;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>📝 Drishti's To-Do List</h1>
+    <div>
+      <input type="text" id="taskInput" placeholder="Enter task">
+      <input type="time" id="timeInput">
+      <button onclick="addTask()">Add</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    window.onload = function () {
+      tasks.forEach(task => addTaskToDOM(task));
+      setInterval(checkReminders, 60000); // check every 60 seconds
+    };
+
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const timeInput = document.getElementById("timeInput");
+
+      const taskText = taskInput.value.trim();
+      const taskTime = timeInput.value;
+
+      if (taskText === "" || taskTime === "") return;
+
+      const task = {
+        text: taskText,
+        time: taskTime,
+        done: false
+      };
+
+      tasks.push(task);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      addTaskToDOM(task);
+
+      taskInput.value = "";
+      timeInput.value = "";
+    }
+
+    function addTaskToDOM(task) {
+      const li = document.createElement("li");
+
+      const taskInfo = document.createElement("div");
+      taskInfo.className = "task-info";
+      taskInfo.innerHTML = `<span class="${task.done ? 'done' : ''}">${task.text}</span><span class="time">Time: ${task.time}</span>`;
+
+      const doneBtn = document.createElement("button");
+      doneBtn.textContent = task.done ? "Undone" : "Done";
+      doneBtn.className = "done-btn";
+      doneBtn.onclick = () => toggleDone(task, li, taskInfo, doneBtn);
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.className = "delete-btn";
+      deleteBtn.onclick = () => deleteTask(task, li);
+
+      li.appendChild(taskInfo);
+      li.appendChild(doneBtn);
+      li.appendChild(deleteBtn);
+
+      document.getElementById("taskList").appendChild(li);
+    }
+
+    function toggleDone(task, li, taskInfo, doneBtn) {
+      task.done = !task.done;
+      const textElement = taskInfo.querySelector("span");
+      textElement.className = task.done ? "done" : "";
+      doneBtn.textContent = task.done ? "Undone" : "Done";
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function deleteTask(task, li) {
+      tasks = tasks.filter(t => !(t.text === task.text && t.time === task.time));
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      li.remove();
+    }
+
+    function checkReminders() {
+      const now = new Date();
+      const currentTime = now.toTimeString().slice(0, 5); // "HH:MM"
+
+      tasks.forEach(task => {
+        if (!task.done && task.time === currentTime) {
+          alert(`⏰ Reminder: "${task.text}" is scheduled for now!`);
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

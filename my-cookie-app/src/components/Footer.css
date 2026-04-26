@@ -1,0 +1,31 @@
+.footer {
+  background: #1C1410;
+  border-top: 1px solid rgba(212, 175, 110, 0.1);
+  padding: 2.5rem 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Jost", sans-serif;
+}
+
+.footer-copy {
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #3D3028;
+}
+
+.footer-tag {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: #B8935A;
+}
+
+@media (max-width: 600px) {
+  .footer {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}

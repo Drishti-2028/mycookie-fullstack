@@ -1,0 +1,57 @@
+/* Navbar Styling */
+nav {
+  background-color: #e74c3c;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #ffd9b3;
+  text-decoration: underline;
+}
+
+/* Welcome Section */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.menu-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #ff7043;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.menu-link:hover {
+  background-color: #ff5722;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+  }
+
+  nav a {
+    margin: 10px 0;
+  }
+
+  .container {
+    padding: 20px;
+  }
+}

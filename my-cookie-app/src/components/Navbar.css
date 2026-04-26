@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem 8%;
+  background: rgba(14, 10, 7, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(212, 175, 110, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #F5ECD7;
+  letter-spacing: 0.06em;
+}
+
+.logo span {
+  color: #D4AF6E;
+  font-style: italic;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #7A6650;
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links li a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: #D4AF6E;
+  transition: width 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #D4AF6E;
+}
+
+.nav-links li a:hover::after {
+  width: 100%;
+}
+
+.nav-login a {
+  color: #D4AF6E !important;
+  border: 1px solid rgba(212, 175, 110, 0.4);
+  padding: 0.5rem 1.3rem;
+  transition: all 0.3s ease;
+}
+
+.nav-login a:hover {
+  background: #D4AF6E;
+  color: #0E0A07 !important;
+}
+
+.nav-login a::after {
+  display: none !important;
+}
+
+.nav-user {
+  color: #D4AF6E;
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.nav-logout {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 110, 0.4);
+  color: #D4AF6E;
+  font-family: "Jost", sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-logout:hover {
+  background: #D4AF6E;
+  color: #0E0A07;
+}
+
+@media (max-width: 900px) {
+  .navbar {
+    padding: 1.2rem 6%;
+  }
+  .nav-links {
+    gap: 1.5rem;
+  }
+  .nav-links li a {
+    font-size: 0.7rem;
+  }
+}

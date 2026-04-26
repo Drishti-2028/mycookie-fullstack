@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Drishti's To-Do List</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e3ffe7 0%, #d9e7ff 100%);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 40px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2d2d2d;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .input-section {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    input[type="text"], input[type="time"] {
+      padding: 12px 16px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      width: 48%;
+      background-color: #f9f9f9;
+    }
+
+    button {
+      padding: 12px 18px;
+      background-color: #6c63ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #5548e0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #f4f6ff;
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.2s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .task-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .task-text {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .time {
+      font-size: 14px;
+      color: #6d6d6d;
+    }
+
+    .done {
+      text-decoration: line-through;
+      color: #bbb;
+    }
+
+    .btn-group button {
+      margin-left: 8px;
+      font-size: 14px;
+      padding: 6px 10px;
+    }
+
+    .done-btn {
+      background-color: #2e7d32;
+    }
+
+    .done-btn:hover {
+      background-color: #256428;
+    }
+
+    .delete-btn {
+      background-color: #d32f2f;
+    }
+
+    .delete-btn:hover {
+      background-color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>🌟 Drishti's Daily Planner</h1>
+
+  <div class="input-section">
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <input type="time" id="timeInput">
+    <button onclick="addTask()">Add Task</button>
+  </div>
+
+  <ul id="taskList"></ul>
+</div>
+
+<script>
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  window.onload = function () {
+    tasks.forEach(task => addTaskToDOM(task));
+    setInterval(checkReminders, 60000); // check every 60 sec
+  };
+
+  function addTask() {
+    const taskText = document.getElementById("taskInput").value.trim();
+    const taskTime = document.getElementById("timeInput").value;
+
+    if (!taskText || !taskTime) return;
+
+    const task = { text: taskText, time: taskTime, done: false };
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    addTaskToDOM(task);
+
+    document.getElementById("taskInput").value = "";
+    document.getElementById("timeInput").value = "";
+  }
+
+  function addTaskToDOM(task) {
+    const li = document.createElement("li");
+
+    const taskInfo = document.createElement("div");
+    taskInfo.className = "task-info";
+    taskInfo.innerHTML = `
+      <span class="task-text ${task.done ? 'done' : ''}">${task.text}</span>
+      <span class="time">⏰ ${task.time}</span>
+    `;
+
+    const doneBtn = document.createElement("button");
+    doneBtn.textContent = task.done ? "Undone" : "Done";
+    doneBtn.className = "done-btn";
+    doneBtn.onclick = () => toggleDone(task, taskInfo, doneBtn);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.className = "delete-btn";
+    deleteBtn.onclick = () => deleteTask(task, li);
+
+    const btnGroup = document.createElement("div");
+    btnGroup.className = "btn-group";
+    btnGroup.appendChild(doneBtn);
+    btnGroup.appendChild(deleteBtn);
+
+    li.appendChild(taskInfo);
+    li.appendChild(btnGroup);
+
+    document.getElementById("taskList").appendChild(li);
+  }
+
+  function toggleDone(task, taskInfo, doneBtn) {
+    task.done = !task.done;
+    const taskText = taskInfo.querySelector(".task-text");
+    taskText.className = `task-text ${task.done ? 'done' : ''}`;
+    doneBtn.textContent = task.done ? "Undone" : "Done";
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+
+  function deleteTask(task, li) {
+    tasks = tasks.filter(t => !(t.text === task.text && t.time === task.time));
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+    li.remove();
+  }
+
+  function checkReminders() {
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 5); // HH:MM
+
+    tasks.forEach(task => {
+      if (!task.done && task.time === currentTime) {
+        alert(`🔔 Reminder: "${task.text}" is scheduled now!`);
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

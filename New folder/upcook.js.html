@@ -1,0 +1,202 @@
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import './index.css';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Cookies from './pages/Cookies';
+import About from './pages/About';
+import Contact from './pages/Contact';
+import Order from './pages/Order';
+
+function App() {
+  return (
+    <Router>
+      <Header />
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cookies" element={<Cookies />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/order" element={<Order />} />
+      </Routes>
+      <Footer />
+    </Router>
+  );
+}
+
+export default App;
+
+// src/components/Header.js
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  header: {
+    backgroundColor: '#f4a261',
+    padding: '24px',
+    textAlign: 'center',
+    color: 'white',
+  },
+});
+
+function Header() {
+  const classes = useStyles();
+  return (
+    <header className={classes.header}>
+      <h1>My Cookie</h1>
+      <p>All Types. All Love. All Yours.</p>
+    </header>
+  );
+}
+
+export default Header;
+
+// src/components/NavBar.js
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  nav: {
+    backgroundColor: '#e76f51',
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '32px',
+    padding: '16px 0',
+  },
+  navLink: {
+    color: 'white',
+    textDecoration: 'none',
+    fontWeight: 'bold',
+    '&:hover': {
+      textDecoration: 'underline',
+    },
+  },
+});
+
+function NavBar() {
+  const classes = useStyles();
+  return (
+    <nav className={classes.nav}>
+      <Link className={classes.navLink} to="/">Home</Link>
+      <Link className={classes.navLink} to="/cookies">Cookies</Link>
+      <Link className={classes.navLink} to="/about">About Us</Link>
+      <Link className={classes.navLink} to="/contact">Contact</Link>
+      <Link className={classes.navLink} to="/order">Order Now</Link>
+    </nav>
+  );
+}
+
+export default NavBar;
+
+// src/components/Footer.js
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  footer: {
+    backgroundColor: '#f4a261',
+    color: 'white',
+    textAlign: 'center',
+    padding: '16px',
+    marginTop: '64px',
+  },
+});
+
+function Footer() {
+  const classes = useStyles();
+  return (
+    <footer className={classes.footer}>
+      <p>&copy; 2025 My Cookie. All rights reserved.</p>
+    </footer>
+  );
+}
+
+export default Footer;
+
+// src/pages/Home.js
+import React from 'react';
+import { createUseStyles } from 'react-jss';
+
+const useStyles = createUseStyles({
+  hero: {
+    textAlign: 'center',
+    padding: '64px 16px',
+    backgroundColor: '#ffe8d6',
+  },
+  title: {
+    fontSize: '3rem',
+    marginBottom: '1rem',
+  },
+  text: {
+    fontSize: '1.2rem',
+    maxWidth: '600px',
+    margin: '0 auto',
+  },
+});
+
+function Home() {
+  const classes = useStyles();
+  return (
+    <section className={classes.hero}>
+      <h1 className={classes.title}>Welcome to My Cookie!</h1>
+      <p className={classes.text}>
+        From classic chocolate chip to gluten-free surprises, we bake every kind of cookie you crave. Taste happiness in every bite.
+      </p>
+    </section>
+  );
+}
+
+export default Home;
+
+// src/pages/Cookies.js
+import React from 'react';
+
+function Cookies() {
+  return <h2 style={{ padding: '2rem' }>Explore all our delicious cookies here!</h2>;
+
+
+export default Cookies;
+
+// src/pages/About.js
+import React from 'react';
+
+function About() {
+  return <h2 style={{ padding: '2rem' }>Learn more about the story behind My Cookie!</h2>;
+
+
+export default About;
+
+// src/pages/Contact.js
+import React from 'react';
+
+function Contact() {
+  return <h2 style={{ padding: '2rem' }>Contact us with your cookie cravings and queries!</h2>;
+
+
+export default Contact;
+
+// src/pages/Order.js
+import React from 'react';
+
+function Order() {
+  return <h2 style={{ padding: '2rem' }>Place your order now and get cookies delivered to your doorstep!</h2>;
+
+
+export default Order;

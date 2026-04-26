@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+.contact-section {
+  background: #F8F6F2;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: "Jost", sans-serif;
+}
+
+/* LEFT SIDE */
+.contact-left {
+  padding: 140px 8% 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid rgba(28, 20, 16, 0.07);
+}
+
+.contact-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.7rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #B8935A;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+.contact-eyebrow::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: #B8935A;
+  flex-shrink: 0;
+}
+
+.contact-left h2 {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.8rem, 4vw, 4.5rem);
+  font-weight: 300;
+  color: #1C1410;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+}
+
+.contact-left h2 em {
+  font-style: italic;
+  color: #B8935A;
+  display: block;
+}
+
+.contact-left p {
+  font-size: 0.9rem;
+  line-height: 1.9;
+  color: #9A8878;
+  font-weight: 300;
+  max-width: 360px;
+  letter-spacing: 0.02em;
+}
+
+/* RIGHT SIDE */
+.contact-right {
+  padding: 140px 8% 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: #FFFFFF;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column;
+  padding: 2.2rem 0;
+  border-bottom: 1px solid rgba(28, 20, 16, 0.07);
+  transition: padding-left 0.3s ease;
+  cursor: default;
+}
+.contact-item:first-child {
+  border-top: 1px solid rgba(28, 20, 16, 0.07);
+}
+.contact-item:hover {
+  padding-left: 0.75rem;
+}
+
+.contact-item-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #B8935A;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.contact-item-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #1C1410;
+  letter-spacing: 0.02em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+  .contact-left {
+    padding: 120px 6% 50px;
+    border-right: none;
+    border-bottom: 1px solid rgba(28, 20, 16, 0.07);
+  }
+  .contact-right {
+    padding: 50px 6% 60px;
+  }
+}
